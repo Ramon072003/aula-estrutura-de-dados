@@ -1,0 +1,48 @@
+class DynamicIntArray:
+    def __init__(self, capactiy=2):
+        if capactiy <=0:
+            return ValueError('Capacidade inicial deve ser maior que 0')
+        
+        self.capacity = capactiy
+        self.size = 0
+        self.data = [0] * self.capacity
+
+    def append(self, value):
+        if self.size == self.capacity:
+            self._resize_up(2*self.capacity)
+        self.data[self.size] = value
+        self.size +=1
+
+    def _resize_up(self, new_capacity):
+        print(f"Aumentando a capacidade {self.capacity} para {new_capacity}")
+        new_data = [0] * new_capacity
+        for i in range(self.size):
+            new_data[i] = self.data[i]
+        self.data = new_data
+        self.capacity = new_capacity
+
+    def is_empty(self):
+        if(self.size <=0):
+            return True
+        return False
+
+    def get(self, index):
+        if(index > self.size):
+            return ValueError('Index fora dos limites')
+        return self.data[index]
+    
+    def set(self, index, value):
+        if(index > self.size-1):
+            print('Index fora dos limites ao usar set')
+        self.data[index] = value
+
+    def __str__(self):
+        return str(self.data[:self.size])
+
+lista = DynamicIntArray()
+lista.append(10)
+lista.append(20)
+lista.append(30)
+lista.set(2, 90)
+
+print(lista)

@@ -100,19 +100,19 @@ class HashTable:
         if not bucket.search(key):
             bucket.append(key)
 
-
     def search(self, key):
         index = self._hash(key)
         bucket = self.buckets.get(index)
         if bucket.search(key):
             return index
         return None
-        
 
     def remove(self, key):
         index = self._hash(key)
         bucket = self.buckets.get(index)
-        return bucket.remove(key)
+        if bucket.search(key):
+            return bucket.remove(key)
+        return -1
 
     def __str__(self):
         lines = []
